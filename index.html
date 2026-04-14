@@ -280,6 +280,7 @@
             
             <div class="controls">
                 <button id="resetFilters" class="reset">Обнулить все фильтры</button>
+                <button onclick="exportTableToCSV()">Сохранить таблицу как CSV</button>
             </div>
             <div class="legend">
                 <div class="legend-item">
@@ -322,15 +323,14 @@
     </div>
 
     <script>
-        // updated at 01.03
         const fills = {
             "ГФФ-1": ['https://archiveofourown.gay/works/80538271'],
             "ГФФ-2": ['https://archiveofourown.gay/works/78734341'],
             "ГФФ-5": ['https://archiveofourown.gay/works/79052026', 'https://archiveofourown.gay/works/79008396'],
             "ГФФ-6": ['https://archiveofourown.gay/works/78842056'],
             "ГФФ-14": ['https://archiveofourown.gay/works/79265941', 'https://archiveofourown.gay/works/80336106'],
-            "ГФФ-23": ['https://archiveofourown.gay/works/79007756', 'https://archiveofourown.gay/works/79241011', 'https://archiveofourown.gay/works/79848426', 'https://archiveofourown.gay/works/79849091', 'https://archiveofourown.gay/works/80220471', 'https://archiveofourown.gay/works/81234386'],
-            "ГФФ-27": ['https://archiveofourown.gay/works/80222226', 'https://archiveofourown.gay/works/80223716', 'https://archiveofourown.gay/works/80539806'],
+            "ГФФ-23": ['https://archiveofourown.gay/works/79007756', 'https://archiveofourown.gay/works/79241011', 'https://archiveofourown.gay/works/79848426', 'https://archiveofourown.gay/works/79849091', 'https://archiveofourown.gay/works/80220471', 'https://archiveofourown.gay/works/81234386', 'https://archiveofourown.gay/works/82320326'],
+            "ГФФ-27": ['https://archiveofourown.gay/works/80222226', 'https://archiveofourown.gay/works/80223716', 'https://archiveofourown.gay/works/80539806', 'https://archiveofourown.gay/works/82322381', 'https://archiveofourown.gay/works/82507156'],
             "ГФФ-28": ['https://archiveofourown.gay/works/79450971', 'https://archiveofourown.gay/works/80054021'],
             "ГФФ-30": ['https://archiveofourown.gay/works/79005131', 'https://archiveofourown.gay/works/79240391'],
             "ГФФ-35": ['https://archiveofourown.gay/works/78882521'],
@@ -345,6 +345,7 @@
             "ГФФ-73": ['https://archiveofourown.gay/works/80549761'],
             "ГФФ-75": ['https://archiveofourown.gay/works/81235611'],
             "ГФФ-78": ['https://archiveofourown.gay/works/79849091'],
+            "ГФФ-82": ['https://archiveofourown.gay/works/82120961'],
             "ГФФ-90": ['https://archiveofourown.gay/works/80965196'],
             "ГФФ-102": ['https://archiveofourown.gay/works/79416846'],
             "ГФФ-105": ['https://archiveofourown.gay/works/79006151'],
@@ -354,6 +355,7 @@
             "ГФФ-128": ['https://archiveofourown.gay/works/80054261', 'https://archiveofourown.gay/works/80336631', 'https://archiveofourown.gay/works/80548681', 'https://archiveofourown.gay/works/80547856'],
             "ГФФ-145": ['https://archiveofourown.gay/works/79052026'],
             "ГФФ-166": ['https://archiveofourown.gay/works/81964691'],
+            "ГФФ-188": ['https://archiveofourown.gay/works/82323181'],
             "ГФФ-201": ['https://archiveofourown.gay/works/81308241'],
             "ГФФ-205": ['https://archiveofourown.gay/works/80541251'],
             "ГФФ-207": ['https://archiveofourown.gay/works/79377391'],
@@ -363,6 +365,7 @@
             "ГФФ-248": ['https://archiveofourown.gay/works/78780591'],
             "ГФФ-250": ['https://archiveofourown.gay/works/79443726'],
             "ГФФ-268": ['https://archiveofourown.gay/works/79300231'],
+            "ГФФ-280": ['https://archiveofourown.gay/works/82321146'],
             "ГФФ-281": ['https://archiveofourown.gay/works/79266056'],
             "ГФФ-285": ['https://archiveofourown.gay/works/79299476'],
             "ГФФ-287": ['https://archiveofourown.gay/works/78790966'],
@@ -377,6 +380,7 @@
             "ГФФ-373": ['https://archiveofourown.gay/works/80729181'],
             "ГФФ-379": ['https://archiveofourown.gay/works/81382591'],
             "ГФФ-398": ['https://archiveofourown.gay/works/80545071'],
+            "ГФФ-409": ['https://archiveofourown.gay/works/82184546'],
             "ГФФ-411": ['https://archiveofourown.gay/works/80960471'],
             "ГФФ-424": ['https://archiveofourown.gay/works/79069511'],
             "ГФФ-433": ['https://archiveofourown.gay/works/81910536'],
@@ -390,11 +394,14 @@
             "ГФФ-477": ['https://archiveofourown.gay/works/80963951'],
             "ГФФ-489": ['https://archiveofourown.gay/works/79004916'],
             "ГФФ-496": ['https://archiveofourown.gay/works/79008146'],
+            "ГФФ-504": ['https://archiveofourown.gay/works/82184741'],
             "ГФФ-505": ['https://archiveofourown.gay/works/82119341'],
             "ГФФ-512": ['https://archiveofourown.gay/works/80547326'],
+            "ГФФ-516": ['https://archiveofourown.gay/works/82119831'],
             "ГФФ-522": ['https://archiveofourown.gay/works/80549071'],
             "ГФФ-578": ['https://archiveofourown.gay/works/81384991'],
             "ГФФ-585": ['https://archiveofourown.gay/works/80664886'],
+            "ГФФ-597": ['https://archiveofourown.gay/works/82185331'],
             "ГФФ-613": ['https://archiveofourown.gay/works/81858676'],
             "ГФФ-621": ['https://archiveofourown.gay/works/82055826'],
             "ГФФ-670": ['https://archiveofourown.gay/works/81244826'],
@@ -406,6 +413,7 @@
             "ГФФ-773": ['https://archiveofourown.gay/works/82055186'],
             "ГФФ-776": ['https://archiveofourown.gay/works/80728656'],
             "ГФФ-817": ['https://archiveofourown.gay/works/81433646'],
+            "ГФФ-825": ['https://archiveofourown.gay/works/82121271'],
             "ГФФ-840": ['https://archiveofourown.gay/works/80960851', 'https://archiveofourown.gay/works/81244826'],
             "ГФФ-842": ['https://archiveofourown.gay/works/80960471'],
         }
@@ -646,13 +654,49 @@
             applyFilters();
         }
 
+        function exportTableToCSV(filename = 'table-export.csv', tableSelector = 'table') {
+          const table = document.querySelector(tableSelector);
+          if (!table) {
+            console.error('Table not found:', tableSelector);
+            return;
+          }
+
+          const rows = Array.from(table.querySelectorAll('tr'));
+
+          const csvContent = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('th, td'));
+            return cells.map(cell => {
+              // Get text, trim whitespace
+              let text = cell.innerText.trim();
+              // Escape double quotes by doubling them
+              text = text.replace(/"/g, '""');
+              // Wrap in quotes if contains comma, newline, or quote
+              if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                text = `"${text}"`;
+              }
+              return text;
+            }).join(',');
+          }).join('\n');
+
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          link.style.display = 'none';
+
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             initializeFilters();
             applyFilters();
             
             document.getElementById('resetFilters').addEventListener('click', resetFilters);
-
-            toggleFilter('extras', 'Донабор', document.getElementById('filter-extras').children[1]);
         });
     </script>
 </body>
